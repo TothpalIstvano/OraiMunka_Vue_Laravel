@@ -1,0 +1,9 @@
+Laravel file létrehozzása composerrel:
+
+ composer create-project --prefer-dist laravel/laravel projectneve
+
+Laravel installer installálása(többszöri használathoz):
+
+ composer global require laravel/installer
+ez után fálj létrehozás rövidebb
+ laravel new projectnev

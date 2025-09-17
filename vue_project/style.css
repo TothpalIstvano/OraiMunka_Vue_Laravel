@@ -1,0 +1,15 @@
+/*színek*/
+.redText{
+    color: red;
+}
+.blueText{
+    color: blue;
+}
+.greenText{
+    color: green;
+}
+
+/*betűstílus*/
+.boldText{
+    font-weight: bold;
+}
