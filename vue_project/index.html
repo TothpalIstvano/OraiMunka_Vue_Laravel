@@ -1,66 +1,33 @@
-<html>
-    <head>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div id="app">
-            <h1>{{ hello }}</h1>
-            <p>Greetings: <b>{{ hello }}</b></p>
-            <p :title="tooltip">Move mouse over me!</p>
-            <p :class="myStyle">Text</p>
-            <p :class="[color, fontWeight]">Text</p>
-            <p :style="styleObject">Styled Text</p>
-            <p>{{hello.split('').reverse().join('')}}</p>
-            <span v-html="myHeader"></span>
-            <p>{{myHeader}}</p>
-            <p v-once>{{hello}}</p>
-            <p>{{revreseHello}}</p>
-            <p>{{capitalize()}}</p>
-            <p>{{add(6, 7)}}</p>
-            <p v-if="showHelloWorld">Hello World!</p>
-            <template v-if="showHelloWorld">
-                <h1 >Hello World!</h1>
-                <p>Vmit Vue</p>
-            </template>
-            <p v-show="showHelloWorld">Hello World!</p>
-            <p v-if="a > 0"> positive </p>
-            <p v-else-if="a < 0"> negative </p>
-            <p v-else> zero </p>
-            <ul>
-                <li v-for="(fruit, index) in fruits">{{ index + 1}}. {{ fruit }}</li>
-            </ul>
-            <ul>
-                <li v-for="(value, key) in person">{{ key }}: {{ value }}</li>
-            </ul>
-            <ul>
-                <li v-for="n in 10">{{ n }}</li>
-            </ul>
-            <!--<ul>
-                <span v-for="todo in todos">
-                    <li v-if="todo.done">{{ todo.text }}</li>
-                </span>
-            </ul>-->
-            <button @click="addSomething(1)">Add 1</button>
-            <button @click="addSomething(5)">Add 5</button>
-            <p>Counter: {{ counter }}</p>
-            
-            <a @click.prevent="addOne" href="https://szbi-pg.hu">PG</a>
-            <p>Counter: {{ counter }}</p>
-
-            <input @keyup.enter="addSomething(1)" @keyup.space="addSomething(5)" type="text" placeholder="Press Enter to add 1">
-
-            <p @mouseover="performMouseOver()" @mouseout="performMouseOut()">Move your mouse over me</p>
-            <p>Status: {{ mouseEventStatus }}</p>
-
-            <ul>
-                <li v-for="n in 5" @click="addSomething(n)">Add {{ n }}</li>
-                <p>Counter: {{ counter }}</p>
-            </ul>
-
-            <input type="text" v-model="inputText">
-            <p>{{ inputText }}</p>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <script src="app.js"></script>
-    </body>
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Komponensek</title>
+</head>
+<body>
+    <div id="app">
+        <!--
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <br>
+        
+        <component-a></component-a>
+        <component-b></component-b>
+        <component-c></component-c>
+        <br>
+        <hello-user :name="name"></hello-user>
+        
+        <button-counter></button-counter>
+        
+        <custom-input v-model="inputText"></custom-input>
+        <p>Beírt szöveg: {{ inputText }}</p>
+        -->
+        <hello-user>Géza</hello-user>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="app.js"></script>
+</body>
 </html>

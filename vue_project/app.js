@@ -1,74 +1,142 @@
-new Vue({
-    el: '#app',
-    data: {
-        hello: 'Hello World',
-        /*revreseHello: '',*/
-        tooltip: 'This is a tooltip',
-        myStyle: 'redText', /*redText, blueText, greenText*/
-        color: 'redText',
-        fontWeight: 'boldText',
-        styleObject: {
-            color: 'blue',
-            fontSize: '20px'
-        },
-        myHeader: '<h2>Dynamic Header</h2>',
-        showHelloWorld: true,
-        a: 5,
-        fruits: ['Apple', 'Banana', 'Orange'],
-        person: { 
-            firstName: 'John',
-            lastName: 'Doe', 
-            age: 30
-        },
-        counter: 0,
-        mouseEventStatus: 'start',
-        inputText: 'Hello World!',
-    },
-    /*created: function() {
-        console.log('Vue instance created');
-    },*/
-    methods: {
-        /*revreseHello: function() {
-            return  this.hello.split('').reverse().join('');
-        },*/
-        capitalize: function() {
-            return this.hello.toUpperCase();
-        },
-        add: function(a, b) {
-            return a + b;
-        },
-        addOne(event) {
-            this.counter += 1;
-            //console.log(event);
-            /*if(event) {
-                event.preventDefault();
-            }*/
-        },
-        addSomething(something) {
-            this.counter += something;
-        },
-        performMouseOver() {
-            this.mouseEventStatus = 'You are hovering the mouse over the box';
-        },
-        performMouseOut() {
-            this.mouseEventStatus = 'You are outside the box';
-        },
-    },
-     /*
-    watch: {
-        hello(newVal) {
-            this.revreseHello = newVal.split('').reverse().join('');ű
-            console.log('hello changed to:', newVal);
+/*
+Vue.component('button-counter', {
+    data: function () {
+        return {
+        count: 0
         }
     },
-    created() {
-        this.revreseHello = this.hello.split('').reverse().join('');
-    },*/
-   
-   computed:{
-        revreseHello() {
-            return this.hello.split('').reverse().join('');
-        }
-    }
-})
+    template: 
+        `<div>
+            <button @click="count++">Add 1</button>
+            Counter: {{ count }}
+        </div>`,
+    });
+*/
+// Global components
 
+/*
+Vue.component('component-a', {
+    template: `<div>Component A</div>`,
+});
+
+Vue.component('component-b', {
+    template: `<div><component-a></component-a>Component B</div>`,
+});
+
+Vue.component('component-c', {
+    template: `<div>Component C</div>`,
+});
+*/
+
+// Local components
+/*
+let componentA = {
+    template: `<div>Component A</div>`,
+};
+
+let componentB = {
+    template: `<div>Component B</div>`,
+};
+
+let componentC = {
+    template: `<div>Component C</div>`,
+}
+*/
+
+// component with attributes
+/*
+Vue.component('hello-user', {
+    //props: ['name'],
+    props: {
+        name: {
+            type: String,
+            required: false,
+            default: 'Béla',
+        },
+    },
+    template: `<div >Hello {{ name }}!</div>`,
+});
+*/
+
+// component with events
+/*
+Vue.component('button-counter', {
+    props: ['counter'],
+    template: `
+        <div>
+            <button @click="$emit('add-some', 1)">Add 1</button>
+            <button @click="$emit('add-some', 5)">Add 5</button>
+            Counter: {{ counter }}
+        </div>`,
+});
+*/
+// component with mixins
+/*
+let myMixin = {
+    created() {
+        this.hello();
+    },
+    methods: {
+        hello() {
+            console.log('Hello from mixin!');
+        },
+    },
+};
+
+Vue.component('button-counter', {
+    mixins: [myMixin],
+    data(){
+        return {
+            counter: 0,
+        }
+    },
+    template: `
+        <div>
+            <button @click="counter++">Add 1</button>
+            Counter: {{ counter }}
+        </div>`,
+});
+*/
+// component with v-model
+/*
+Vue.component('custom-input', {
+    props: ['value'],
+    template: `
+        <input :value="value" @input="$emit('input', $event.target.value)" />`,
+    
+});*/
+
+Vue.component('hello-user', {
+    //props: ['name'],
+    template: `<div >Hello, <slot></slot>!</div>`,
+});
+
+// Root instance
+let app = new Vue({
+    el: '#app',
+    /*data: {
+        name: 'Aladár',
+    },
+    */
+    /*data: {
+        inputText: 'Hello World!',
+
+    },
+   */
+    /*data: {
+        counter: 0,
+    },
+    methods: {
+        addSome: function(vauleToAdd) {
+            this.counter +=  vauleToAdd;
+        },
+    },*/
+
+    /*components: {
+        'component-a': componentA,
+        'component-b': componentB,
+    },
+    data: {
+        name: 'Pisti',
+    },*/
+});
