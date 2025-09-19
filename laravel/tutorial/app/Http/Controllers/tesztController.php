@@ -1,16 +1,20 @@
 <?
 namespace App\Http\Controllers;
 
-use COM;
-
 class tesztController 
 {
     public function teszt()
     {
-        $name = ['Pali', 'Jani', 'Kati', 'Mari'];
-        $randomNameKey = array_rand($name,1);
-        $randomName = $name[$randomNameKey];
+        $names = ['Pali', 'Jani', 'Kati', 'Mari', 'Niki', 'Tomi', 'Szabi'];
+        $randomNameKey = array_rand($names,1);
+        $randomName = $names[$randomNameKey];
 
-        return view('teszt',compact('randomName'));
+        return view('pages.teszt',compact('randomName'));
+    }
+
+    public function names()
+    {
+        $names = ['Pali', 'Jani', 'Kati', 'Szabi', 'Niki', 'Tomi', 'Mari'];
+        return view('pages.names', compact('names'));
     }
 }
