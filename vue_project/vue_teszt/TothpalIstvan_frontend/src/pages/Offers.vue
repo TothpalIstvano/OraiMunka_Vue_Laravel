@@ -21,23 +21,25 @@
     }
 </script>
 <template>
-    <h1 class="mb-4 text-center">Ajánlataink</h1>
-    <table>
-        <tr>
-            <th>Kategória</th>
-            <th>Leírás</th>
-            <th>Hirdetés dátuma</th>
-            <th>Tehermentes</th>
-            <th>Fénykép</th>
-        </tr>
-        <tr v-for="ingatlan in ingatlanok" :key="ingatlan.id">
-            <td class="text-center">{{ ingatlan.kategoriaNev }}</td>
-            <td class="text-center">{{ ingatlan.leiras }}</td>
-            <td class="text-center">{{ ingatlan.hirdetesDatuma }}</td>
-            <td :class="ingatlan.tehermentes ? 'zold' : 'piros'" class="text-center">{{ ingatlan.tehermentes? 'igen' : 'nem' }}</td>
-            <td><img :src="ingatlan.kepUrl " class="kep"></td>
-        </tr>
-    </table>
+    <div>
+        <h1 class="mb-4 text-center">Ajánlataink</h1>
+        <table>
+            <tr>
+                <th>Kategória</th>
+                <th>Leírás</th>
+                <th>Hirdetés dátuma</th>
+                <th>Tehermentes</th>
+                <th>Fénykép</th>
+            </tr>
+            <tr v-for="ingatlan in ingatlanok" :key="ingatlan.id">
+                <td class="text-center">{{ ingatlan.kategoriaNev }}</td>
+                <td class="text-center">{{ ingatlan.leiras }}</td>
+                <td class="text-center">{{ ingatlan.hirdetesDatuma }}</td>
+                <td :class="ingatlan.tehermentes ? 'zold' : 'piros'" class="text-center">{{ ingatlan.tehermentes? 'igen' : 'nem' }}</td>
+                <td><img :src="ingatlan.kepUrl " class="kep"></td>
+            </tr>
+        </table>
+    </div>
 </template>
 <style scoped>
     table {
