@@ -1,6 +1,7 @@
 <?
 namespace App\Http\Controllers;
 use App\Models\Name;
+use App\Models\Family;
 class tesztController 
 {
     public function teszt()
@@ -32,11 +33,30 @@ class tesztController
         return view('pages.names', compact('names'));
     }
 
-    public function namesCreate($name)
+    public function namesCreate($family, $name)
     {
         $nameRecord = new Name();
         $nameRecord->name = $name;
+        $nameRecord->family_id = $family;
         $nameRecord->save();
         return $nameRecord->id;
     }
+
+    public function familiesCreate($name)
+    {
+        $familyRecord = new Family();
+        $familyRecord->surname = $name;
+        $familyRecord->save();
+        return $familyRecord->id;
+    }
+
+    /*
+    $names = \DB::table('names')
+        ->where('name', '<>', 'Béla')
+        ->whereAnd('id', '>', 1)
+        ->orderBy('id', 'desc')
+        ->get();
+    
+    $names = \DB::select("SELECT * FROM names WHERE name <> ? AND id > ? ORDER BY id DESC', ['Béla', 1]");
+    */
 }
