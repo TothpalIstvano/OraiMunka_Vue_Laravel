@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kombinált lista - Vue.js</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Kombinált lista</h1>
+        <form>
+            <label for="gyumolcs">Válassz egy gyümölcsöt:</label>
+            <select v-model="kivalasztott" id="gyumolcs">
+                <option v-for="gyumolcs in gyumolcsok" :key="gyumolcs" :value="gyumolcs">
+                    {{ gyumolcs }}
+                </option>
+            </select>
+        </form>
+        <div v-if="kivalasztott" class="kep-container">
+            <img
+                :src="'img/' + kivalasztott + '.jpg'"
+                :alt="kivalasztott"
+                :title="kivalasztott"
+            >
+            <div class="felirat">Kiválasztott: {{ kivalasztott }}</div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
