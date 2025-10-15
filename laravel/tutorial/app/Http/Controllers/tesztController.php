@@ -59,4 +59,5 @@ class tesztController
     
     $names = \DB::select("SELECT * FROM names WHERE name <> ? AND id > ? ORDER BY id DESC', ['Béla', 1]");
     */
+    
 }
