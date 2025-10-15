@@ -8,13 +8,14 @@
     }
 
 </script>
-<template>
-    <div>
-        <button @click="counter++">click me</button>
-        <p>Count: {{ counter }}</p>
-    </div>
+<template lang="pug">
+    div
+        button(@click="counter++") click me
+        p Count: {{ counter }}
+
 </template>
-<style scoped>
+<style lang="less" scoped>
+@color: blue;
 button {
     font-size: 1.5em;
     margin: 1em;
@@ -26,6 +27,6 @@ button {
     cursor: pointer;
 }
 p{
-    color: blue;
+    color: @color;
 }
 </style>
