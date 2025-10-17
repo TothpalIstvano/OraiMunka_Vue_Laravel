@@ -13,3 +13,4 @@ Route::get('/names', [tesztController::class, 'names']);
 //Route::get('/names/create/{name}', [tesztController::class,'namesCreate']);
 Route::get('/names/create/{family}/{name}', [tesztController::class,'namesCreate']);
 Route::get('/families/create/{name}', [tesztController::class, 'familiesCreate']);
+Route::post('/names/delete', [tesztController::class, 'namesDelete']);

@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 use App\Models\Name;
 use App\Models\Family;
+use Illuminate\Http\Request;
+
 class tesztController 
 {
     public function teszt()
@@ -50,7 +52,42 @@ class tesztController
         return $familyRecord->id;
     }
 
-    /*
+    public function namesDelete(Request $request)
+    {
+        $name = Name::find($request->input('id'));
+        $name->delete();
+        return "ok";
+    }
+
+
+
+
+
+ /*
+    function saveData(Request $request)
+    {
+
+    }
+
+    function returnObject()
+    {
+        $obj = new \stdClass();
+        $obj->name = "Gábor";
+        $obj->server = "SZBI-PG";
+        return response()->json($obj);
+    }
+
+    function returnError()
+    {
+        return response()->view('error', ['valtozó'=> 'ez egy változó értéke'], 404);
+    }
+
+    function redirectAway()
+    {
+        return redirect('https://szbi-pg.hu');
+    }
+
+   
     $names = \DB::table('names')
         ->where('name', '<>', 'Béla')
         ->whereAnd('id', '>', 1)
