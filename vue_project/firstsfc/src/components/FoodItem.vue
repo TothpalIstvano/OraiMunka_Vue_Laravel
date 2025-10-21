@@ -1,7 +1,7 @@
 <template>
     <div @click="countClicks">
         <h2>{{ foodName }}
-            <img src="../img_quality.svg" v-if="foodIsFavorite" alt="Favorite">
+            <img src="../img_quality.svg" v-show="isFavorite" alt="Favorite">
         </h2>
         <p>{{ foodDescription }}</p>
         <button @click="toogleFavorite">Favorite</button>
@@ -14,7 +14,9 @@
 
 <script>
 export default {
-    props: {
+    props: ['foodName', 'foodDescription', 'isFavorite'],
+    emits: ['toogle-favorite'],
+    /*props: {
         foodName:{
             type: String,
             required: true
@@ -35,7 +37,7 @@ export default {
             required: false,
             default: false
         },
-    },
+    }, */
     data() {
         return {
             foodIsFavorite: this.isFavorite,
@@ -43,9 +45,11 @@ export default {
     },
     methods: {
         toogleFavorite() {
-            this.foodIsFavorite = !this.foodIsFavorite;
+            /*this.foodIsFavorite = !this.foodIsFavorite;*/
+            this.$emit('toogle-favorite', this.foodName);
         },
     }
+   
     /*data() {
         return {
             name: this.foodName,
