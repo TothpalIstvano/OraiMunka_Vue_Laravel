@@ -18,7 +18,9 @@ export default {
         { name: 'Hamburger', desc: 'A hamburger egy népszerű amerikai gyorsétel.', favorite: false },
         { name: 'Sajt', desc: 'A sajt egy tejből készült élelmiszer. ', favorite: false },
         { name: 'Rizs', desc: 'A rizs egy alapvető élelmiszer. ', favorite: false },
-      ]
+      ],
+      newItem: '',
+      items: ['Első feladat', 'Második feladat', 'Harmadik feladat']
     }
   },
   methods: {
@@ -28,43 +30,66 @@ export default {
     receiveEmit(foodId) {
       const foundFood = this.foods.find(x => x.name === foodId);
       foundFood.favorite = !foundFood.favorite;
+    },
+    addItem(){
+      this.items.push(this.newItem);
+      this.newItem='';
     }
   }
 }
 </script>
 <template>
-  <div>
-    <h1>Ételek:</h1>
-    <!--  <h1>{{ msg }}</h1>--->
-    <button @click="removeItem">Eltavolítás</button>
-    <div id="wrapper">
-      <food-item 
-        v-for="x in foods"
-        :key="x.name"
-        :food-name="x.name"
-        :food-description="x.desc"
-        :is-favorite="x.favorite"
-        @toogle-favorite="receiveEmit"
-        />
-      <!--
-      <food-item 
-        food-name="Hamburger"
-        food-description="A hamburger egy népszerű amerikai gyorsétel."
-        :is-favorite="false"
-        />
-      <food-item 
-        food-name="Sajt"
-        food-description="A sajt egy tejből készült élelmiszer. "
-        :is-favorite="false"
-        />
-      <food-item
-        food-name="Rizs"
-        food-description="A rizs egy alapvető élelmiszer. "
-        :is-favorite="false"
-        />
-      -->
-    </div>
+  <h1>Ételek:</h1>
+  <!--  <h1>{{ msg }}</h1>--->
+  <button @click="removeItem">Eltavolítás</button>
+  <div id="wrapper">
+    <food-item 
+      v-for="x in foods"
+      :key="x.name"
+      :food-name="x.name"
+      :food-description="x.desc"
+      :is-favorite="x.favorite"
+      @toogle-favorite="receiveEmit"
+      />
+    <!--
+    <food-item 
+      food-name="Hamburger"
+      food-description="A hamburger egy népszerű amerikai gyorsétel."
+      :is-favorite="false"
+      />
+    <food-item 
+      food-name="Sajt"
+      food-description="A sajt egy tejből készült élelmiszer. "
+      :is-favorite="false"
+      />
+    <food-item
+      food-name="Rizs"
+      food-description="A rizs egy alapvető élelmiszer. "
+      :is-favorite="false"
+      />
+    -->
   </div>
+  <h3>Todo list</h3>
+  <ul>
+    <todo-item v-for="x in items" :key="x" :item-name="x" style="background-color: lightblue;"/>
+  </ul>
+  <input v-model="newItem"/>
+  <button @click="addItem">Hozzáadás</button>
+
+  <h3>Vue slotok</h3>
+  <div id="wrapper">
+    <slot-comp v-for="x in foods">
+      <img :src="x.url">
+      <h4>{{ x.name }}</h4>
+      <p>{{ x.desc }}</p>
+    </slot-comp>  
+    <footer>
+      <slot-comp>
+        <h4>footer</h4>
+      </slot-comp>
+    </footer>
+  </div>
+
 </template>
 
 <style>
