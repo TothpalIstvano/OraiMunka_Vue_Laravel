@@ -59,9 +59,26 @@ class tesztController
         return "ok";
     }
 
+    public function manageSurname()
+    {
+        $names = Family::all();
+        return view('pages.surname', compact('names'));
+    }
 
+    public function surnameDelete(Request $request)
+    {
+        $family = Family::find($request->input('id'));
+        $family->delete();
+        return "ok";
+    }
 
-
+    public function newSurname(Request $request)
+    {
+        $familyRecord = new Family();
+        $familyRecord->surname = $request->input('inputFamily');
+        $familyRecord->save();
+        return redirect('/names/manage/surname');
+    }
 
  /*
     function saveData(Request $request)
