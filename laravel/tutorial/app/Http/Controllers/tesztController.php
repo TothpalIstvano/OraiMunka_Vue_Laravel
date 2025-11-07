@@ -21,6 +21,7 @@ class tesztController
         return view('pages.names', compact('names'));
         */
         $names = Name::all();
+        $families = Family::all();
 
         /*
         $names = Name::find(1);
@@ -32,7 +33,7 @@ class tesztController
                 ->orderBy('id', 'desc')
                 ->get();
         */
-        return view('pages.names', compact('names'));
+        return view('pages.names', compact('names', 'families'));
     }
 
     public function namesCreate($family, $name)
@@ -78,6 +79,15 @@ class tesztController
         $familyRecord->surname = $request->input('inputFamily');
         $familyRecord->save();
         return redirect('/names/manage/surname');
+    }
+
+    public function newName(Request $request)
+    {
+        $name = new Name();
+        $name->family_id = $request->input('inputFamily');
+        $name->name = $request->input('inputName');
+        $name->save();
+        return redirect('/names');
     }
 
  /*

@@ -28,8 +28,24 @@
                 </tr>
                 @endforeach
             </tbody>
-
         </table>
+            <h3 class="mt-3">Új Név hozzáadása</h3>
+            <form method="post" action="/names/manage/name/new">
+                @csrf
+                <div class="form-group">
+                    <label for="inputFamily">Családnév</label>
+                    <select class="form-control" id="inputFamily" name="inputFamily">
+                        @foreach ($families as $family)
+                            <option value="{{ $family->id }}">{{ $family->surname }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputName">Keresztnév</label>
+                    <input type="text" class="form-control" id="inputName" name="inputName">
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Hozzáadás</button>
+            </form>
         <!--ul>
             @foreach ($names as $name ) 
             
