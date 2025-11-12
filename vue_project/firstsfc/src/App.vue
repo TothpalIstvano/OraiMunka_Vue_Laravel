@@ -39,9 +39,9 @@ export default {
 }
 </script>
 <template>
-  <h1>Ételek:</h1>
-  <!--  <h1>{{ msg }}</h1>--->
-  <button @click="removeItem">Eltavolítás</button>
+  <!--h1>Ételek:</h1-->
+  <!--  <h1>{{ msg }}</h1-->
+  <!--button @click="removeItem">Eltavolítás</button>
   <div id="wrapper">
     <food-item 
       v-for="x in foods"
@@ -50,7 +50,7 @@ export default {
       :food-description="x.desc"
       :is-favorite="x.favorite"
       @toogle-favorite="receiveEmit"
-      />
+      /-->
     <!--
     <food-item 
       food-name="Hamburger"
@@ -67,9 +67,9 @@ export default {
       food-description="A rizs egy alapvető élelmiszer. "
       :is-favorite="false"
       />
-    -->
-  </div>
-  <h3>Todo list</h3>
+    
+  </div>-->
+  <!--h3>Todo list</h3>
   <ul>
     <todo-item v-for="x in items" :key="x" :item-name="x" style="background-color: lightblue;"/>
   </ul>
@@ -78,35 +78,64 @@ export default {
 
   <h3>Vue slotok</h3>
   <div id="wrapper">
-    <slot-comp v-for="x in foods">
+    <slot-comp v-slot:bottomSlot v-for="x in foods">
       <img :src="x.url">
       <h4>{{ x.name }}</h4>
       <p>{{ x.desc }}</p>
     </slot-comp>  
     <footer>
-      <slot-comp>
+      <slot-comp v-slot:default>
         <h4>footer</h4>
       </slot-comp>
     </footer>
-  </div>
+  </div-->
 
+  <!--h1>App.vue</h1>
+  <p>Ez egy komponens.</p>
+  <slot-comp>
+    <template #bottomSlot>
+      <h4>Ez a bottomSlot</h4>
+      <p>Ez a bottomSlot tartalma.</p>
+    </template>
+  </slot-comp-->
+
+  <slot-comp v-slot="food">
+    <hr>
+    <p>{{ food.staticText }}</p>
+    <h2>{{ food.foodName  }} <img :src="food.foodUrl"></h2>
+    <p class="greenP">{{ food.foodDescription }}</p>
+  </slot-comp>
 </template>
 
 <style>
-  #wrapper {
+  /*#wrapper {
     display: flex;
     flex-wrap: wrap;
   }
   #wrapper > div {
     border: dashed 1px black;
-    /*display: inline-block;*/
+    /display: inline-block;/
     flex-basis: 120px;
     padding: 10px;
     margin: 10px;
     background-color: green;
-  }
+  }*/
+  /*
   #wrapper > div:hover {
     background-color: lightgreen;
     cursor: pointer;
+  }*/
+  #app {
+    width: 300px;
+  }
+  h2, .greenP{
+    background-color: lightgreen;
+    padding: 10px;
+    margin: 0;
+  }
+  img {
+    float: right;
+    height: 70px;
+    margin-left: 10px;
   }
 </style>
