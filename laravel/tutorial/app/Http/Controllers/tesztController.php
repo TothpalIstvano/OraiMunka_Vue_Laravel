@@ -2,7 +2,9 @@
 namespace App\Http\Controllers;
 use App\Models\Name;
 use App\Models\Family;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Exception;
 
 class tesztController 
 {
@@ -68,13 +70,24 @@ class tesztController
 
     public function surnameDelete(Request $request)
     {
+        try{
         $family = Family::find($request->input('id'));
         $family->delete();
-        return "ok";
+        return response()->json(["success"=>true]);
+        } 
+        catch (QueryException $e) {
+            return response()->json(["success"=>false,'message'=>'Nem törölhető, mert vannak hozzá kapcsolódó nevek.']);
+        }
+        catch (Exception $e) {
+            return response()->json(["success"=>false,'message'=>'ismeretlen hiba történt.']);
+        }
     }
 
     public function newSurname(Request $request)
     {
+        $validated = $request->validate([
+            'inputFamily' => 'required|alpha|min:2|max:20',
+        ]);
         $familyRecord = new Family();
         $familyRecord->surname = $request->input('inputFamily');
         $familyRecord->save();
@@ -83,6 +96,10 @@ class tesztController
 
     public function newName(Request $request)
     {
+        $validated = $request->validate([
+            'inputFamily' => 'required|integer|exists:App\Models\Family,id',
+            'inputName' => 'required|alpha|min:2|max:20',
+        ]);
         $name = new Name();
         $name->family_id = $request->input('inputFamily');
         $name->name = $request->input('inputName');

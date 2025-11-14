@@ -25,11 +25,20 @@
             </tbody>
         </table>
         <h3 class="mt-3">Új Családnév hozzáadása</h3>
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="post" action="/names/manage/surname/new">
             @csrf
             <div class="form-group">
                 <label for="inputFamily">Családnév</label>
-                <input type="text" class="form-control" id="inputFamily" name="inputFamily">
+                <input type="text" class="form-control" id="inputFamily" name="inputFamily" value="{{ old('inputFamily') }}" minlength="2" maxlength="20" required>
             </div>
             <button type="submit" class="btn btn-primary mt-2">Hozzáadás</button>
         </form>
@@ -59,12 +68,13 @@
                     _token: "{{ csrf_token() }}",
                     id: id,
                 },
-                success: function(){
-                    thisBtn.closest('tr').fadeOut();
-                },
-                error: function(){ 
-                        alert('Hiba a törlés során!');
+                success: function(data){
+                    if(data.success === true) {
+                        thisBtn.closest('tr').fadeOut();
+                    } else {
+                        alert('Hiba a törlés során!\nRészletek: ' + data.message);
                     }
+                }
                 });
             });
     </script>
