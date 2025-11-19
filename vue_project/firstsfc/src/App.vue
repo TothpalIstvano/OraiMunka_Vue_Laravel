@@ -9,7 +9,7 @@ import FoodItem from './components/FoodItem.vue'
       }
     }
   }
-*/
+
 export default {
   data() {
     return {
@@ -37,6 +37,18 @@ export default {
     }
   }
 }
+export default {
+  data() {
+    return {
+      toggleValue: true
+    };
+  },
+  computed: {
+    activeComp() {
+      return this.toggleValue ? 'comp-one' : 'comp-two';
+    }
+  },
+}*/
 </script>
 <template>
   <!--h1>Ételek:</h1-->
@@ -99,14 +111,20 @@ export default {
     </template>
   </slot-comp-->
 
-  <slot-comp v-slot="food">
+  <!--slot-comp v-slot="food">
     <hr>
     <p>{{ food.staticText }}</p>
     <h2>{{ food.foodName  }} <img :src="food.foodUrl"></h2>
     <p class="greenP">{{ food.foodDescription }}</p>
-  </slot-comp>
+  </slot-comp-->
+  <h1>Dinamikus komponens</h1>
+  <p>A gombra kattintva válthatunk a dinamikus komponensek között.</p>
+  <!--button @click="toggleValue = !toggleValue">Dinamikus komponens</button>
+  <KeepAlive max="2"--><!--include="CompOne"-->
+  <!--component :is="activeComp"></component>
+  </KeepAlive-->
+  <comp-one></comp-one>
 </template>
-
 <style>
   /*#wrapper {
     display: flex;
@@ -124,7 +142,7 @@ export default {
   #wrapper > div:hover {
     background-color: lightgreen;
     cursor: pointer;
-  }*/
+  }
   #app {
     width: 300px;
   }
@@ -137,5 +155,5 @@ export default {
     float: right;
     height: 70px;
     margin-left: 10px;
-  }
+  }*/
 </style>
