@@ -15,9 +15,26 @@
             <li class="nav-item">
             <a class="nav-link" href="/names/manage/surname">Családnevek</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-            </li>
+            @auth
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Profil</a>
+                </li>
+            @endauth
+        </ul>
+        <ul class="navbar-nav ms-auto">
+            @auth
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit(); ">Kijelentkezés ({{ Auth::user()->name }})</a>
+                    <form id="logout-form" action="/logout" method="POST">@csrf</form>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Bejelentkezés</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="/register">Regisztráció</a>
+                </li>
+            @endauth
         </ul>
         </div>
     </div>

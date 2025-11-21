@@ -8,9 +8,12 @@
             <thead>
                 <tr>
                     <th>Azonosító</th>
+                    <th>Családnév</th>
                     <th>Név</th>
                     <th>Létrehozás</th>
-                    <th>Müveletek</th>
+                    @auth
+                        <th>Müveletek</th>
+                    @endauth
                 </tr>
             </thead>
             <tbody>
@@ -24,11 +27,14 @@
                     @endempty
                     <td>{{ $name->name }}</td>
                     <td>{{ $name->created_at }}</td>
-                    <td><a href="#" class="btn btn-sn btn-danger btn-delete-name" data-id="{{ $name->id }}">Törlés</a></td>
+                    @auth
+                        <td><a href="#" class="btn btn-sn btn-danger btn-delete-name" data-id="{{ $name->id }}">Törlés</a></td>
+                    @endauth
                 </tr>
                 @endforeach
             </tbody>
         </table>
+        @auth
             <h3 class="mt-3">Új Név hozzáadása</h3>
             @if($errors->any())
                 <div class="alert alert-danger">
@@ -54,8 +60,10 @@
                     <input type="text" class="form-control" id="inputName" name="inputName">
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">Hozzáadás</button>
-            </form>
-        <!--ul>
+          </form> 
+        @endauth 
+
+        <!--ul> 
             @foreach ($names as $name ) 
             
                 <li @if ($name == 'Szabi')style="font-weight: bold; color: red" @endif>
@@ -66,7 +74,7 @@
             @endforeach
         </ul-->
     </div>
-
+   
 @endsection
 
 @section('scripts')
