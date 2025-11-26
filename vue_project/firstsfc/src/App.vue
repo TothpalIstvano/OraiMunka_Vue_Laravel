@@ -49,6 +49,38 @@ export default {
     }
   },
 }*/
+
+/*
+export default {
+  data() {
+    return {
+      randomMammal: null
+    }
+  },
+  methods: {
+    async fetchData() {
+      const response = await fetch('bigLandMammals.json');
+      const data = await response.json(); 
+      const randIndex = Math.floor(Math.random() * data.results.length);
+      this.randomMammal = data.results[randIndex];
+    }
+  }
+}*/
+
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      nameday: null,
+    }
+  },
+  methods: {
+    async fetchData() {
+      this.nameday = await axios.get('https://nameday.abalin.net/api/V2/today/budapest');
+    }
+  }
+}
 </script>
 <template>
   <!--h1>Ételek:</h1-->
@@ -117,13 +149,31 @@ export default {
     <h2>{{ food.foodName  }} <img :src="food.foodUrl"></h2>
     <p class="greenP">{{ food.foodDescription }}</p>
   </slot-comp-->
-  <h1>Dinamikus komponens</h1>
-  <p>A gombra kattintva válthatunk a dinamikus komponensek között.</p>
+  <!--h1>Dinamikus komponens</h1>
+  <p>A gombra kattintva válthatunk a dinamikus komponensek között.</p-->
   <!--button @click="toggleValue = !toggleValue">Dinamikus komponens</button>
   <KeepAlive max="2"--><!--include="CompOne"-->
   <!--component :is="activeComp"></component>
   </KeepAlive-->
-  <comp-one></comp-one>
+  <!--comp-one></comp-one-->
+  <!--div>
+    <button @click="fetchData">fetch Data</button>
+    <p v-if="data">
+      {{ data }}
+    </p>
+  </div-->
+    <!--P>A gombra kattintva egy véletlen állatot kapunk.</P>
+    <button @click="fetchData">fetch Data</button>
+  <div v-if="randomMammal">
+    <h2>{{ randomMammal.name }}</h2>
+    <p>Maximum súly: {{ randomMammal.maxWeight }} kg</p>
+  </div-->
+  <h1>Névnap</h1>
+  <button @click="fetchData">fetch Data</button>
+  <div v-if="nameday">
+    <p>{{ nameday.data.message }}</p>
+    <p>Boldog névnapot {{ nameday.data.data.hu }}!</p>
+  </div>
 </template>
 <style>
   /*#wrapper {
