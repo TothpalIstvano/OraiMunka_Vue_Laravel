@@ -1,12 +1,12 @@
 <script setup>
-//import HelloWorld from './components/HelloWorld.vue'
-//import TheWelcome from './components/TheWelcome.vue'
-import HelloUser from './components/HelloUser.vue';
+
+
 </script>
 
 <template>
   <div>
-     <HelloUser name="John Doe" />
+     <hello-user name="John Doe" />
+     <button-counter />
   </div>
 </template>
 

@@ -1,6 +1,11 @@
 <?
 namespace App\Http\Controllers;
 use App\Models\Name;
+use App\Models\Family;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
+use Exception;
+
 class tesztController 
 {
     public function teszt()
@@ -18,6 +23,7 @@ class tesztController
         return view('pages.names', compact('names'));
         */
         $names = Name::all();
+        $families = Family::all();
 
         /*
         $names = Name::find(1);
@@ -29,14 +35,110 @@ class tesztController
                 ->orderBy('id', 'desc')
                 ->get();
         */
-        return view('pages.names', compact('names'));
+        return view('pages.names', compact('names', 'families'));
     }
 
-    public function namesCreate($name)
+    public function namesCreate($family, $name)
     {
         $nameRecord = new Name();
         $nameRecord->name = $name;
+        $nameRecord->family_id = $family;
         $nameRecord->save();
         return $nameRecord->id;
     }
+
+    public function familiesCreate($name)
+    {
+        $familyRecord = new Family();
+        $familyRecord->surname = $name;
+        $familyRecord->save();
+        return $familyRecord->id;
+    }
+
+    public function namesDelete(Request $request)
+    {
+        $name = Name::find($request->input('id'));
+        $name->delete();
+        return "ok";
+    }
+
+    public function manageSurname()
+    {
+        $names = Family::all();
+        return view('pages.surname', compact('names'));
+    }
+
+    public function surnameDelete(Request $request)
+    {
+        try{
+        $family = Family::find($request->input('id'));
+        $family->delete();
+        return response()->json(["success"=>true]);
+        } 
+        catch (QueryException $e) {
+            return response()->json(["success"=>false,'message'=>'Nem törölhető, mert vannak hozzá kapcsolódó nevek.']);
+        }
+        catch (Exception $e) {
+            return response()->json(["success"=>false,'message'=>'ismeretlen hiba történt.']);
+        }
+    }
+
+    public function newSurname(Request $request)
+    {
+        $validated = $request->validate([
+            'inputFamily' => 'required|alpha|min:2|max:20',
+        ]);
+        $familyRecord = new Family();
+        $familyRecord->surname = $request->input('inputFamily');
+        $familyRecord->save();
+        return redirect('/names/manage/surname');
+    }
+
+    public function newName(Request $request)
+    {
+        $validated = $request->validate([
+            'inputFamily' => 'required|integer|exists:App\Models\Family,id',
+            'inputName' => 'required|alpha|min:2|max:20',
+        ]);
+        $name = new Name();
+        $name->family_id = $request->input('inputFamily');
+        $name->name = $request->input('inputName');
+        $name->save();
+        return redirect('/names');
+    }
+
+ /*
+    function saveData(Request $request)
+    {
+
+    }
+
+    function returnObject()
+    {
+        $obj = new \stdClass();
+        $obj->name = "Gábor";
+        $obj->server = "SZBI-PG";
+        return response()->json($obj);
+    }
+
+    function returnError()
+    {
+        return response()->view('error', ['valtozó'=> 'ez egy változó értéke'], 404);
+    }
+
+    function redirectAway()
+    {
+        return redirect('https://szbi-pg.hu');
+    }
+
+   
+    $names = \DB::table('names')
+        ->where('name', '<>', 'Béla')
+        ->whereAnd('id', '>', 1)
+        ->orderBy('id', 'desc')
+        ->get();
+    
+    $names = \DB::select("SELECT * FROM names WHERE name <> ? AND id > ? ORDER BY id DESC', ['Béla', 1]");
+    */
+    
 }
